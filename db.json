@@ -1,0 +1,114 @@
+{
+    "clients" : [{
+        "name": "Client #1",
+        "reports": [{
+            "name": "Report #432523",
+            "list": [
+                {
+                    "name": "Data #764588",
+                    "data": [{
+                        "label": "Series 1",
+                        "data": [
+                            {
+                                "primary": "2022-02-03T00:00:00.000Z",
+                                "likes": 20
+                            },
+                            {
+                                "primary": "2022-03-03T00:00:00.000Z",
+                                "likes": 300
+                            }
+                        ]
+                    },
+                    {
+                        "label": "Series 2",
+                        "data": [
+                            {
+                                "primary": "2022-04-03T00:00:00.000Z",
+                                "likes": 500
+                            },
+                            {
+                                "primary": "2022-05-03T00:00:00.000Z",
+                                "likes": 650
+                            }
+                        ]
+                    }]
+                }
+            ]
+        }, 
+        {
+            "name": "Report #675544",
+            "list": [
+                {
+                    "name": "Data #777988",
+                    "data": [{
+                        "label": "Series 1",
+                        "data": [
+                            {
+                                "primary": "2022-02-03T00:00:00.000Z",
+                                "likes": 760
+                            },
+                            {
+                                "primary": "2022-03-03T00:00:00.000Z",
+                                "likes": 440
+                            }
+                        ]
+                    },
+                    {
+                        "label": "Series 2",
+                        "data": [
+                            {
+                                "primary": "2022-04-03T00:00:00.000Z",
+                                "likes": 40
+                            },
+                            {
+                                "primary": "2022-05-03T00:00:00.000Z",
+                                "likes": 350
+                            }
+                        ]
+                    }]
+                }
+            ]
+        }]
+    },
+    {
+        "name": "Client #2",
+        "reports": [{
+            "name": "Report #987345",
+            "list": [
+                {
+                    "name": "Data #709588",
+                    "data": [{
+                        "label": "Series 1",
+                        "data": [
+                            {
+                                "primary": "2022-02-03T00:00:00.000Z",
+                                "likes": 800
+                            },
+                            {
+                                "primary": "2022-03-03T00:00:00.000Z",
+                                "likes": 360
+                            }
+                        ]
+                    },
+                    {
+                        "label": "Series 2",
+                        "data": [
+                            {
+                                "primary": "2022-04-03T00:00:00.000Z",
+                                "likes": 300
+                            },
+                            {
+                                "primary": "2022-05-03T00:00:00.000Z",
+                                "likes": 200
+                            }
+                        ]
+                    }]
+                }
+            ]
+        }]
+    },
+    {
+        "name": "Client #3",
+        "reports": []
+    }]
+}

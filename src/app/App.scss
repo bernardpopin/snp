@@ -1,0 +1,29 @@
+.app {
+  &__no-matches {
+    text-align: center;
+    margin: 100px 0 100px 0;
+  }
+
+  .header-container {
+    display: flex;
+
+    .add-client {
+        border: none;
+        background-color: #00aa00;
+        color: #ffffff;
+        padding: 10px;
+        border-radius: 10px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .search-client {
+        border: none;
+        background-color: #ffffff;
+        padding: 10px;
+        border-radius: 10px;
+        font-weight: bold;
+        margin-left: auto;
+    }
+  }
+}
