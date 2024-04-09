@@ -3,25 +3,30 @@ import { useDispatch } from "react-redux";
 import "./report.scss";
 import { Chart } from "react-charts";
 import type { AppDispatch } from "../../app/store.ts";
-import { updateReport } from "../client/clientSlice.ts";
+import {
+  IReport,
+  IClient,
+  IData,
+  updateReport,
+} from "../client/clientSlice.ts";
 
 const ReportContainer = ({ client, report }) => {
   const dispatch = useDispatch<AppDispatch>();
 
   const removeReportHandler = () => {
-    const clientReportIndex = client.reports.findIndex(
-      (el) => el.name === report.name
+    const clientReportIndex: number = client.reports.findIndex(
+      (el: IReport) => el.name === report.name
     );
-    const data = structuredClone(client);
+    const data: IClient = structuredClone(client);
     data.reports.splice(clientReportIndex, 1);
     dispatch(updateReport(data));
   };
 
   const addDataToReportHandler = () => {
-    const clientReportIndex = client.reports.findIndex(
-      (el) => el.name === report.name
+    const clientReportIndex: number = client.reports.findIndex(
+      (el: IReport) => el.name === report.name
     );
-    const randomData = {
+    const randomData: IData = {
       name: `Data #${Math.floor(Math.random() * 1000000 + 1)}`,
       data: [
         {
@@ -52,19 +57,19 @@ const ReportContainer = ({ client, report }) => {
         },
       ],
     };
-    const data = structuredClone(client);
+    const data: IClient = structuredClone(client);
     data.reports[clientReportIndex].list.push(randomData);
     dispatch(updateReport(data));
   };
 
-  const removeDataFromReportHandler = (name) => {
-    const clientReportIndex = client.reports.findIndex(
-      (el) => el.name === report.name
+  const removeDataFromReportHandler = (name: string) => {
+    const clientReportIndex: number = client.reports.findIndex(
+      (el: IReport) => el.name === report.name
     );
-    const clientReportDataIndex = client.reports[
+    const clientReportDataIndex: number = client.reports[
       clientReportIndex
     ].list.findIndex((el) => el.name === name);
-    const data = structuredClone(client);
+    const data: IClient = structuredClone(client);
     data.reports[clientReportIndex].list.splice(clientReportDataIndex, 1);
     dispatch(updateReport(data));
   };

@@ -3,25 +3,30 @@ import { useDispatch } from "react-redux";
 import "./client.scss";
 import ReportContainer from "../report/report.tsx";
 import type { AppDispatch } from "../../app/store.ts";
-import { deleteClientData, updateReport } from "./clientSlice.ts";
+import {
+  IReport,
+  IClient,
+  deleteClientData,
+  updateReport,
+} from "./clientSlice.ts";
 
 const ClientContainer = ({ client }) => {
   const dispatch = useDispatch<AppDispatch>();
-  const [showClientState, setShowClientState] = useState(false);
-  const hasReports = client.reports.length > 0;
-  const clientId = client.id;
+  const [showClientState, setShowClientState] = useState<boolean>(false);
+  const hasReports: boolean = client.reports.length > 0;
+  const clientId: string = client.id;
 
   const removeClientHandler = () => {
     dispatch(deleteClientData(clientId));
   };
 
   const addReportHandler = () => {
-    const randomReportNumber = Math.floor(Math.random() * 1000000 + 1);
-    const randomReport = {
+    const randomReportNumber: number = Math.floor(Math.random() * 1000000 + 1);
+    const randomReport: IReport = {
       name: `Report #${randomReportNumber}`,
       list: [],
     };
-    const data = structuredClone(client);
+    const data: IClient = structuredClone(client);
     data.reports.push(randomReport);
     dispatch(updateReport(data));
   };
@@ -50,7 +55,7 @@ const ClientContainer = ({ client }) => {
           </div>
           {hasReports && (
             <div className="client-container__report-list">
-              {client.reports.map((report) => (
+              {client.reports.map((report: IReport) => (
                 <ReportContainer
                   key={report.name}
                   client={client}

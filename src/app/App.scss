@@ -1,7 +1,30 @@
 .app {
-  &__no-matches {
+  &__no-matches, &__loading {
     text-align: center;
     margin: 100px 0 100px 0;
+  }
+
+  &__error {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    font-weight: bold;
+    background-color: #ffdddd;
+    color: #ff0000;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 15px;
+
+    .clean-error {
+      border: none;
+      background-color: #ff0000;
+      color: #ffffff;
+      padding: 10px;
+      border-radius: 10px;
+      margin-left: auto;
+      font-weight: bold;
+      cursor: pointer;
+    }
   }
 
   .header-container {
