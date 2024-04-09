@@ -40,7 +40,7 @@ const App = () => {
     dispatch(postNewClientData(randomClient));
   };
 
-  const searchClient = (event: any) => {
+  const searchClientHandler = (event: any) => {
     const result: IClient[] = clients.filter((client) =>
       client.name.toLowerCase().includes(event.target.value.toLowerCase())
     );
@@ -65,7 +65,7 @@ const App = () => {
           className="search-client"
           name="search"
           placeholder="Search client"
-          onChange={searchClient}
+          onChange={searchClientHandler}
         />
       </div>
       {clientsState &&
