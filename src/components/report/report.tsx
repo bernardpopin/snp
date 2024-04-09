@@ -3,26 +3,70 @@ import { useDispatch } from "react-redux";
 import "./report.scss";
 import { Chart } from "react-charts";
 import type { AppDispatch } from "../../app/store.ts";
-import {
-  removeReport,
-  removeDataFromReport,
-  addDataToReport,
-} from "../client/clientSlice.ts";
+import { updateReport } from "../client/clientSlice.ts";
 
-const ReportContainer = ({ clientName, report }) => {
+const ReportContainer = ({ client, report }) => {
   const dispatch = useDispatch<AppDispatch>();
 
   const removeReportHandler = () => {
-    dispatch(removeReport({ clientName, report }));
+    const clientReportIndex = client.reports.findIndex(
+      (el) => el.name === report.name
+    );
+    const data = structuredClone(client);
+    data.reports.splice(clientReportIndex, 1);
+    dispatch(updateReport(data));
   };
 
   const addDataToReportHandler = () => {
-    const randomDataNumber = Math.floor(Math.random() * 1000000 + 1);
-    dispatch(addDataToReport({ clientName, report, randomDataNumber }));
+    const clientReportIndex = client.reports.findIndex(
+      (el) => el.name === report.name
+    );
+    const randomData = {
+      name: `Data #${Math.floor(Math.random() * 1000000 + 1)}`,
+      data: [
+        {
+          label: `Series ${Math.floor(Math.random() * 100 + 1)}`,
+          data: [
+            {
+              primary: "2022-02-03T00:00:00.000Z",
+              likes: Math.floor(Math.random() * 1000 + 1),
+            },
+            {
+              primary: "2022-03-03T00:00:00.000Z",
+              likes: Math.floor(Math.random() * 1000 + 1),
+            },
+          ],
+        },
+        {
+          label: `Series ${Math.floor(Math.random() * 100 + 1)}`,
+          data: [
+            {
+              primary: "2022-04-03T00:00:00.000Z",
+              likes: Math.floor(Math.random() * 1000 + 1),
+            },
+            {
+              primary: "2022-05-03T00:00:00.000Z",
+              likes: Math.floor(Math.random() * 1000 + 1),
+            },
+          ],
+        },
+      ],
+    };
+    const data = structuredClone(client);
+    data.reports[clientReportIndex].list.push(randomData);
+    dispatch(updateReport(data));
   };
 
   const removeDataFromReportHandler = (name) => {
-    dispatch(removeDataFromReport({ clientName, report, dataName: name }));
+    const clientReportIndex = client.reports.findIndex(
+      (el) => el.name === report.name
+    );
+    const clientReportDataIndex = client.reports[
+      clientReportIndex
+    ].list.findIndex((el) => el.name === name);
+    const data = structuredClone(client);
+    data.reports[clientReportIndex].list.splice(clientReportDataIndex, 1);
+    dispatch(updateReport(data));
   };
 
   const primaryAxis = React.useMemo(

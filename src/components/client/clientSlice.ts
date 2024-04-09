@@ -1,10 +1,44 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
 
 export const fetchClientsData = createAsyncThunk(
   "client/fetchClientsData",
   async () => {
     const response = await fetch("http://localhost:4000/clients/");
+    const jsonData = await response.json();
+    return jsonData;
+  }
+);
+
+export const postNewClientData = createAsyncThunk(
+  "client/postNewClientData",
+  async (data) => {
+    const response = await fetch("http://localhost:4000/clients/", {
+      method: "POST",
+      body: JSON.stringify(data),
+    });
+    const jsonData = await response.json();
+    return jsonData;
+  }
+);
+
+export const deleteClientData = createAsyncThunk(
+  "client/deleteClientData",
+  async (data) => {
+    const response = await fetch(`http://localhost:4000/clients/${data}`, {
+      method: "DELETE",
+    });
+    const jsonData = await response.json();
+    return jsonData;
+  }
+);
+
+export const updateReport = createAsyncThunk(
+  "client/updateReport",
+  async (data) => {
+    const response = await fetch(`http://localhost:4000/clients/${data.id}`, {
+      method: "PATCH",
+      body: JSON.stringify(data),
+    });
     const jsonData = await response.json();
     return jsonData;
   }
@@ -21,111 +55,29 @@ const initialState: ClientState = {
 export const clientSlice = createSlice({
   name: "client",
   initialState,
-  reducers: {
-    addClient: (state, action: PayloadAction<object>) => {
-      const randomClient = {
-        name: `Client #${action.payload}`,
-        reports: [],
-      };
-      state.clients.push(randomClient);
-    },
-    removeClient: (state, action: PayloadAction<object>) => {
-      const clientIndex = state.clients.findIndex(
-        (el) => el.name === action.payload
-      );
-      state.clients.splice(clientIndex, 1);
-    },
-    removeReport: (state, action: PayloadAction<object>) => {
-      const clientIndex = state.clients.findIndex(
-        (el) => el.name === action.payload.clientName
-      );
-      const clientReportIndex = state.clients[clientIndex].reports.findIndex(
-        (el) => el.name === action.payload.report.name
-      );
-      state.clients[clientIndex].reports.splice(clientReportIndex, 1);
-    },
-    addReport: (state, action: PayloadAction<object>) => {
-      const clientIndex = state.clients.findIndex(
-        (el) => el.name === action.payload.clientName
-      );
-      const randomReport = {
-        name: `Report #${action.payload.randomReportNumber}`,
-        list: [],
-      };
-      state.clients[clientIndex].reports.push(randomReport);
-    },
-    removeDataFromReport: (state, action: PayloadAction<object>) => {
-      const clientIndex = state.clients.findIndex(
-        (el) => el.name === action.payload.clientName
-      );
-      const clientReportIndex = state.clients[clientIndex].reports.findIndex(
-        (el) => el.name === action.payload.report.name
-      );
-      const clientReportDataIndex = state.clients[clientIndex].reports[
-        clientReportIndex
-      ].list.findIndex((el) => el.name === action.payload.dataName);
-      state.clients[clientIndex].reports[clientReportIndex].list.splice(
-        clientReportDataIndex,
-        1
-      );
-    },
-    addDataToReport: (state, action: PayloadAction<object>) => {
-      const clientIndex = state.clients.findIndex(
-        (el) => el.name === action.payload.clientName
-      );
-      const clientReportIndex = state.clients[clientIndex].reports.findIndex(
-        (el) => el.name === action.payload.report.name
-      );
-      const randomData = {
-        name: `Data #${action.payload.randomDataNumber}`,
-        data: [
-          {
-            label: `Series ${Math.floor(Math.random() * 100 + 1)}`,
-            data: [
-              {
-                primary: "2022-02-03T00:00:00.000Z",
-                likes: Math.floor(Math.random() * 1000 + 1),
-              },
-              {
-                primary: "2022-03-03T00:00:00.000Z",
-                likes: Math.floor(Math.random() * 1000 + 1),
-              },
-            ],
-          },
-          {
-            label: `Series ${Math.floor(Math.random() * 100 + 1)}`,
-            data: [
-              {
-                primary: "2022-04-03T00:00:00.000Z",
-                likes: Math.floor(Math.random() * 1000 + 1),
-              },
-              {
-                primary: "2022-05-03T00:00:00.000Z",
-                likes: Math.floor(Math.random() * 1000 + 1),
-              },
-            ],
-          },
-        ],
-      };
-      state.clients[clientIndex].reports[clientReportIndex].list.push(
-        randomData
-      );
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchClientsData.fulfilled, (state, action) => {
       state.clients.push(...action.payload);
     });
+    builder.addCase(postNewClientData.fulfilled, (state, action) => {
+      state.clients.push(action.payload);
+    });
+    builder.addCase(deleteClientData.fulfilled, (state, action) => {
+      const clientIndex = state.clients.findIndex(
+        (el) => el.id === action.payload
+      );
+      state.clients.splice(clientIndex, 1);
+    });
+    builder.addCase(updateReport.fulfilled, (state, action) => {
+      const clientIndex = state.clients.findIndex(
+        (el) => el.id === action.payload.id
+      );
+      state.clients[clientIndex] = action.payload;
+    });
   },
 });
 
-export const {
-  addClient,
-  removeClient,
-  removeReport,
-  addReport,
-  removeDataFromReport,
-  addDataToReport,
-} = clientSlice.actions;
+export const {} = clientSlice.actions;
 
 export default clientSlice.reducer;

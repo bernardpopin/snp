@@ -5,7 +5,7 @@ import type { RootState, AppDispatch } from "./store.ts";
 import ClientContainer from "../components/client/client.tsx";
 import {
   fetchClientsData,
-  addClient,
+  postNewClientData,
 } from "../components/client/clientSlice.ts";
 
 const App = () => {
@@ -24,14 +24,20 @@ const App = () => {
 
   const addNewClientHandler = () => {
     const randomClientNumber = Math.floor(Math.random() * 100 + 1);
-    dispatch(addClient(randomClientNumber));
+    const randomClient = {
+      name: `Client #${randomClientNumber}`,
+      reports: [],
+    };
+    dispatch(postNewClientData(randomClient));
   };
+
   const searchClient = (event) => {
     const result = clients.filter((client) =>
       client.name.toLowerCase().includes(event.target.value.toLowerCase())
     );
     setClientsState(result);
   };
+
   return (
     <div className="app">
       <div className="header-container">
