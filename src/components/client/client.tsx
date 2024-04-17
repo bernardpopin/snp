@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import "./client.scss";
 import ReportContainer from "../report/report.tsx";
-import type { AppDispatch } from "../../app/store.ts";
+import { AppDispatch } from "../../app/store.ts";
 import {
   IReport,
   IClient,

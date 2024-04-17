@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import "./report.scss";
 import { Chart } from "react-charts";
-import type { AppDispatch } from "../../app/store.ts";
+import { AppDispatch } from "../../app/store.ts";
 import {
   IReport,
   IClient,

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import "./App.scss";
-import type { RootState, AppDispatch } from "./store.ts";
+import { RootState, AppDispatch } from "./store.ts";
 import ClientContainer from "../components/client/client.tsx";
 import {
   IClient,
